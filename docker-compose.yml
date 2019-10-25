@@ -1,0 +1,23 @@
+version: "3"
+services:
+  db:
+    container_name: dartsviz_db
+    build: ./postgres_container
+    ports: 
+     - "5432:5432"
+
+  plumber:
+    container_name: plumber_api
+    build: ./r_container
+    ports:
+      - "8000:8000"
+
+  shiny:
+    container_name: shiny
+    environment:
+      DISABLE_AUTH: "true"
+    build: ./app_container
+    user: 'root'
+    ports:
+      - "8787:8787"
+
