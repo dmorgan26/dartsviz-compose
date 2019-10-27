@@ -5,34 +5,12 @@ library(sqldf)
 library(RPostgreSQL)
 
 
-# loads the PostgreSQL driver
+## Loads the PostgreSQL driver
 drv <- dbDriver("PostgreSQL")
-# creates a connection to the postgres database
-# note that "con" will be used later in each connection to the database 
 
-# print("5 seconds")
-# Sys.sleep(5)
-# print("10 seconds")
-# Sys.sleep(5)
-# print("15 seconds")
-# Sys.sleep(5)
-# print("20 seconds")
-# Sys.sleep(5)
-# print("25 seconds")
-# Sys.sleep(5)
-# print("30 seconds")
-# Sys.sleep(5)
-# print("35 seconds")
-# Sys.sleep(5)
-# print("40 seconds")
-# Sys.sleep(5)
-# print("45 seconds")
-# Sys.sleep(5)
-# print("50 seconds")
-# Sys.sleep(5)
-# print("55 seconds")
-# Sys.sleep(5)
-# print("60 seconds")
+
+## Try to connect to postgres server every 5 seconds for a minute
+## Allows time for postgres container to be set up and populated
 
 for (i in 1:12) {
   
@@ -53,7 +31,7 @@ for (i in 1:12) {
     },
     warning=function(cond) {
       
-      return(NULL)
+      return(NULL) 
     },
     finally={
       
@@ -63,7 +41,12 @@ for (i in 1:12) {
 }
 
 
-## Pull in data from the postgres database
+## Pull in the data required to generate the following stats for each player:
+
+## Average number of darts required to win a leg
+## Double conersion %
+## Double conversion when pressure is on (opponent on a low score)
+## Double conversion with no pressure
 
 darts_to_win_leg_query <- dbGetQuery(con, "SELECT   t.visit_sequence 
                                                     , t.dart_sequence
