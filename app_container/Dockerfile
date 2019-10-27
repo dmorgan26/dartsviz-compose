@@ -1,10 +1,13 @@
 FROM rocker/verse:3.6.1
 
-# add shiny server
+###########
+# Add shiny server
+############
+
 RUN export ADD=shiny && bash /etc/cont-init.d/add
 
 ################
-#install linux deps
+# Install linux dependencies
 ################
 
 RUN apt-get update -y && \
@@ -12,19 +15,14 @@ RUN apt-get update -y && \
 		curl
 
 ############
-#install devtools
+# Install remotes package
 ###########
 
 RUN R -e "install.packages('remotes')"
 RUN R -e "remotes::install_github('dmorgan26/dartsviz/plot-app', build_vignettes = TRUE)"
-RUN R -e "library(dartsviz)"
 
 ################
-# configure shiny server
+# Configure shiny server
 ################
-
 
 COPY ./shiny-server.conf /etc/shiny-server/shiny-server.conf
-COPY ./plot-app /home/daniel/Documents/dartsviz
-
-EXPOSE 8787
