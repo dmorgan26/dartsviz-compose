@@ -17,7 +17,6 @@ services:
     environment:
       DISABLE_AUTH: "true"
     build: ./app_container
-    user: 'root'
     ports:
       - "8787:8787"
 
