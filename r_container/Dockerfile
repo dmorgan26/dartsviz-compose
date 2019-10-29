@@ -14,7 +14,7 @@ RUN apt-get update -qq && apt-get install -y \
 ## Install required R packages
 #######
 
-RUN install2.r devtools plumber dplyr tidyr sqldf RPostgreSQL
+RUN install2.r plumber dplyr tidyr sqldf RPostgreSQL
 
 ##########
 ## Copy plumber API file to container
@@ -30,8 +30,8 @@ EXPOSE 8000
 
 ############
 ## Execute on container startup
-## commandArgs[4] points to the fourth parameter sent to ENTRYPOINT
-## In this case the filename of the script that contains plumber API syntax
+## commandArgs[4] points to the fourth parameter sent to ENTRYPOINT, which
+## in this case is the filename of the script that contains plumber API syntax in the CMD call
 #############
 
 ENTRYPOINT ["R", "-e", "pr <- plumber::plumb(commandArgs()[4]); pr$run(host='0.0.0.0', port=8000)"]
