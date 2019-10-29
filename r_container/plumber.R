@@ -46,7 +46,7 @@ for (i in 1:12) {
 ## Average number of darts required to win a leg
 ## Double conersion %
 ## Double conversion when pressure is on (opponent on a low score)
-## Double conversion with no pressure
+## Double conversion with no pressure 
 
 darts_to_win_leg_query <- dbGetQuery(con, "SELECT   t.visit_sequence 
                                                     , t.dart_sequence
